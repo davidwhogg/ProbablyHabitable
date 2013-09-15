@@ -1,0 +1,168 @@
+\documentclass[12pt,preprint]{aastex}
+
+\usepackage{amssymb,amsmath,mathrsfs,graphicx}
+\usepackage{verbatim}
+\usepackage{rotating}
+\usepackage{lscape}
+\usepackage{subfigure}
+
+
+
+\newcommand{\valpha}{\vec{\alpha}}
+\newcommand{\vtheta}{\vec{\theta}}
+\newcommand{\vd}{\vec{d}}
+\newcommand{\pMF}{p_{MF}({\mathrm M}|\valpha , \mathrm{M}_{max})}
+\newcommand {\fcomplete}{{\mathrm f}_{c}({\mathrm M})}
+\newcommand{\pMFobs}{p_{MF_o}({\mathrm M}|\alpha , \mathrm{M}_{max})}
+\newcommand{\pMFi}{p_{MF_o}({\mathrm M}_i |\alpha , \mathrm{M}_{max})}
+\newcommand{\pMlikely}{p_{\mathcal{L}}(\vec{d}|M)}
+\newcommand{\Mbar}{\overline{\mathrm M}}
+\newcommand{\dM}{\delta {\mathrm M}}
+
+\newcommand{\tLstar}{L$_*$}
+\newcommand{\tDplanet}{D$_p$}
+\newcommand{\tMplanet}{M$_p$}
+\newcommand{\tdLstar}{$\delta$L$_*$}
+\newcommand{\tdDplanet}{$\delta$D$_p$}
+\newcommand{\tdMplanet}{$\delta$M$_p$}
+\newcommand{\talbedo}{a$_p$}
+\newcommand{\Gauss}[3]{\exp\Bigl [-\frac{({#1}-{#2})^2}{2{#3}^2}\Bigr ]}
+
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}}	%A sequence of nine symbols (try it and see!)
+
+
+\shortauthors{Kaltenegger \& Rix.}
+\title{Note on how to Calculate Habitability Probabilities} %\footnote{Based on observations made with the NASA/ESA Hubble Space Telescope, obtained from the Data Archive at the Space Telescope Science Institute, which is operated by the Association of Universities for Research in Astronomy, Inc., under NASA contract NAS 5-26555.}}
+
+
+%\author{}
+%\altaffiltext{1}{Max Planck Institute for Astronomy, Koenigstuhl 17, 69117 Heidelberg, Germany}
+
+
+\begin{document}
+
+\section{Framework}
+\label{intro}
+
+We would like to assess quantitatively for a set of exoplanet systems
+what the probabilities of habitability 
+are, given a set of observational constraints and model calculations.
+We presume that for a planet in a nearly circular orbit, the habitability probability is a function of the planet's 
+surface temperature, $p_{hab}(T_s)$, and of the planet's mass (it better be rocky), e.g. 
+
+\begin{eqnarray}
+p_{hab}(M_p,T_s) = 
+\begin{cases}
+1 &  0.1<M_p/M_\earth < 10\ \&\ T^{hab}_{min}<T_s< T^{hab}_{max}\\
+0, & \text{otherwise,}
+\end{cases}
+\end{eqnarray}
+
+where $T^{hab}_{min/max}$ define the habitable zone, and the condition on $M_p$ could be also
+rephrased as a condition on $R_p$. We also presume that 
+$p_{hab}(M_p,T_s) =  p_{hab}(M_p)\cdot p_{hab}(T_s)$. 
+
+If we have {\it 'information'} that bear on $M_p$ and $T_s$ of that planet from some combination 
+of data and models, then
+\begin{equation}
+p_{\mathrm habitable} (info) = \iint_{M_p,T_s=0}^{\infty}p_{hab}(M_p,T_s)\cdot p(M_p,T_s\, |\,  info)\  dM_p~dT_s,
+\end{equation}
+
+which becomes 
+\begin{equation}
+p_{\mathrm habitable} (info) = \int_{0}^{\infty}p_{hab}(M_p)\cdot p(M_p\, |\,  info)~dM_p\times
+\int_{0}^{\infty}p_{hab}(T_s)\cdot p(T_s\, |\,  info)~dT_s .
+\end{equation}
+This Equation is only then strictly valid, if the observational constraints on mass and surface temperature
+are independent; it then 
+just reflects the fact that the planet mass dependence of the habitability can be completely separated 
+from the surface temperature dependence.
+
+Now, let's look at the first term, which turns out to be more straightforward to deal with, 
+and consider the case that we have some radial velocity or transit timing estimate for the planet's mass,
+$p_{obs}(\mathrm{data}\, | \, M_p)$, described e.g. by $(\overline{M_p},\delta M_p)$. And let us presume
+that we have some prior expectations on the relative probabilities of planetary masses around stars 
+like the one under consideration, $p_{prior}(M_p)$; this prior is likely to be 'uninformative', e.g.  
+$p_{prior}(M_p)=$const., or $p_{prior}\bigl( \ln M_p\bigr )=$const.
+
+This allows us to express $p(M_p\, |\,  info)$ in Eq. 3 as 
+\begin{equation}
+p(M_p\, |\,  info) = c\cdot p_{obs}(\mathrm{data}\, | \, M_p)\cdot p_{prior}(M_p),
+\end{equation}
+where $c$ is a normalizing constant.
+
+The second term, $p(T_s\, |\,  info)$, is more implicated, as $info$ entails both 
+observational constraints and model calculations. We presume that we have a planet, 
+encircling a main sequence stars of $T_*$ at a distance $D_p$, with an  
+atmosphere of composition $\vec{c}$ (e.g. H$_2$O or CO$_2$, or some combination)
+and a cloud covering fraction, $f$.
+I.e. the system is described by parameters $\vec{m}=(T_*,D_p,\vec{c},f)$.
+Consequently, the system will have effective albedo, $A$.
+
+For a mean-sequence stars there are (presumed to be exact) size-temperature and luminosity-temperature
+equations, e.g. $R_*=f(T_*)$, so that the star is described by a single (observational) parameter.
+The star's flux at the planet is
+\begin{equation}
+f_* (\vec{m}) = \sigma T_*^4\cdot \frac{R_*^2(T_*)}{D_p^2},
+\end{equation}
+and its effective photospheric temperature, $T_{eff}$, is
+\begin{equation}
+T^4_{eff}=\frac{1}{4}\, T_*^4 \cdot \Bigl ( \frac{R_*}{D_p\sqrt{1-e^2}}\Bigr )^2\cdot \bigl (   1 - A(\vec{m})\bigr ),
+\end{equation}
+where we have listed the eccentricity dependence just for completeness; we will continue to assume 
+circular orbits.
+Atmosphere models then provide $A = f_{mod}(\vec{m})$ and the crucial link to the surface 
+temperature, $T_s = f_{mod}(T_{eff},\vec{c})$.
+
+At present, direct observational constraints consist only on $T_*$ and $D_p$ (and $M_p$), not on $\vec{c}$
+or $f$. If we denote the observational constraints, or 'data', that go along with $\vec{m}$, as $\vec{d}$,
+we have
+\begin{equation}
+p_{likely}(\vec{d}\ |\ \vec{m}) = c_{norm,1} \cdot \Gauss{T_*}{\overline{T_*}}{\delta T_*} 
+\cdot \Gauss{D_p}{\overline{D_p}}{\delta D_p} \cdot f^0,
+\end{equation}
+where we have accounted for the lack of $f$ and $\vec{c}$ constraints by the absence of an
+explicit $\vec{c}$-term and by $f^0$, even though $\vec{d}$ has the same dimensionality as $\vec{m}$.
+
+We can now work towards a more explicit expression for $p(T_s\, |\,  info)$ from Eq. 3. In this context, we write the
+model prediction as 
+\begin{equation}
+p_{mod}(T_s\, |\, \vec{m}) = \delta\Bigl (\, T_s - T_{mod}(\vec{m})\, \Bigr )
+= \delta\Bigl (\, T_s - T_{mod}\bigl (T_{eff}(\vec{m}), \vec{c}, f\bigr )\, \Bigr ),
+\end{equation}
+where the second version, reflects better the role that the different parameters $\vec{m}$ play in
+determining the surface temperature. We can no write
+\begin{equation}
+p(T_s | \vec{d},model) = c \int p_{mod}(T_s\ |\ \vec{m})\cdot 
+p(\vec{m}\ |\ \vec{d})\ d\vec{m},
+\end{equation}
+or 
+\begin{equation}
+p(T_s | \vec{d},model) = c \int   \delta\Bigl (\, T_s - T_{mod}(\vec{m})\, \Bigr )\cdot 
+p_{likely}(\vec{d}\ |\ \vec{m})\cdot  p_{prior}(\vec{m})\ d\vec{m}.
+\end{equation}
+
+As for Eq. 4, we have to specify the prior probabilities, which we take to 
+be separable $p_{prior} (\vec{m}) = p_{prior} (T_*)\cdot p_{prior} (D_p)\cdot p_{prior} \bigl (\vec{c}(T_{eff})\bigr )$.
+With this in hand, the task is {\it in principle} straightforward, to calculate the relative probabilities
+of different surface temperatures in light of the data and models, i.e. $p(T_s | \vec{d},model)$,
+which we need in Eq. 3 to get $p_{habitable}$, we only need to calculate the rich-hand-side of Eq. 10,
+i.e. go through all parameter combinations $\vec{m}=(T_*,D_p,\vec{c},f)$, see which ones lead 
+to a model surface temperature $T_s$, and weigh all different parameter combinations by the 
+observational constraints and their prior likelihood. 
+
+\subsection{A simplified Case}
+
+This is difficult in practice, as it would require a very find model grid in the 4-dimensional parameter
+space $\vec{m}$, just to find {\it all} the model parameter combinations that precisely yield a certain $T_s$.
+Therefore, we work through a simplified case first. We assume that the atmosphere has a certain composition,
+e.g. a pure H$_2$O atmosphere (which is only a plausible assumption for a certain$T_{eff}$ range) ,
+and that the cloud fraction is zero, $f\equiv 0$.
+
+This reduces Eq. 10 to a two-dimensional integral, for each $T_s$, integrating over $T_*$ and $D_p$.
+For each $T_*$ there is (for given $\vec{c}$ and $f$) only one $D_p$ for which the models result in $T_s$
+(cf. Eq. 6). So, if we have a simple functional form for $D_p(T_*\, | \, T_s)$, Eq. 10 becomes a
+one-dimensional integration along this line.
+
+
+ \end{document}
